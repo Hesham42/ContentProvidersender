@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ContentProviderEnter</string>
+    <string name="myname">MyName</string>
+    <string name="myAge">MY Age</string>
+    <string name="display">Display</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+    <string name="insert">Insert</string>
+    <string name="Search">searchByAge</string>
+</resources>
