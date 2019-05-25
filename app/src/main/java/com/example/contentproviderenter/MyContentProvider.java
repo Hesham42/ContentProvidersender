@@ -29,6 +29,7 @@ public class MyContentProvider extends ContentProvider {
     public MyContentProvider() {
     }
 
+
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         int delCount = 0;
@@ -61,6 +62,7 @@ public class MyContentProvider extends ContentProvider {
                 values);
         if (id > 0) {
             Uri _uri = ContentUris.withAppendedId(CONTENT_URI, id);
+            sort();
             getContext().getContentResolver().notifyChange(_uri, null);
             return _uri;
         }
@@ -73,7 +75,13 @@ public class MyContentProvider extends ContentProvider {
         // TODO: Implement this to initialize your content provider on startup.
           helper = new DBHelper(getContext(),null,null,1);
           database = helper.getWritableDatabase();
+            sort();
           return true;
+    }
+
+    private void sort() {
+        database.rawQuery( "select * from "+DBHelper.TABLE_CONTACTS+" ORDER BY _id DESC", null);
+
     }
 
     @Override
@@ -116,6 +124,7 @@ public class MyContentProvider extends ContentProvider {
                         values,
                         selection,
                         selectionArgs);
+                sort();
                 break;
             default:
                 throw new IllegalArgumentException("This is an Unknown URI " + uri);
