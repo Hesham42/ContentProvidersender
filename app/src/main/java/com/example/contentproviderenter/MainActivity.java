@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         final Intent i= new Intent();
         i.putExtra("Name", getName());
         i.putExtra("Age",getAge());
-        i.putExtra("ID",id);
+        i.putExtra("ID",String.valueOf(id));
         i.setAction("com.pkg.perform.Ruby");
         i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         getApplicationContext().sendBroadcast(i);
