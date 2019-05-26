@@ -1,9 +1,14 @@
 package com.example.contentproviderenter;
 
+import android.app.Notification;
+import android.content.ComponentName;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,10 +20,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MainActivity extends AppCompatActivity {
     DBHelper helper;
     EditText Name,Age,SearchAge;
     TextView txv;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         SearchAge= (EditText)  findViewById(R.id.search);
         txv= (TextView) findViewById(R.id.textDBInfo);
         helper = new DBHelper(this,null,null,1);
-
     }
 
 
@@ -36,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void btnInsert(View view) {
         InsertURI();
+
 //        InsertQuereDb();
     }
 
@@ -47,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         db.insert(DBHelper.TABLE_CONTACTS,null,values);
         db.close();
 
+
     }
 
     private void InsertURI() {
@@ -54,8 +63,12 @@ public class MainActivity extends AppCompatActivity {
         values.put(DBHelper.CONTACT_NAME,getName());
         values.put(DBHelper.CONTACT_AGE,getAge());
         Uri contactUri  = getContentResolver().insert(MyContentProvider.CONTENT_URI,values);
-        Toast.makeText(this,"Created Contact " + getName(),Toast.LENGTH_LONG).show();
-
+//        Toast.makeText(this,"Created Contact " + getName(),Toast.LENGTH_LONG).show();
+        final Intent i= new Intent();
+        i.putExtra("data", getName());
+        i.setAction("com.pkg.perform.Ruby");
+        i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+        getApplicationContext().sendBroadcast(i);
     }
 
 
@@ -72,10 +85,14 @@ public class MainActivity extends AppCompatActivity {
                 whereClause,whereArgs);
 
        if (t==0){
-            Log.i("guinness","Not Update Faild");
+//            Log.i("guinness","Not Update Faild");
+           Toast.makeText(this,"Not Update Faild",Toast.LENGTH_LONG).show();
 
        }else {
-           Log.i("guinness","Update done ");
+//           Log.i("guinness","Update done ");
+           Toast.makeText(this,
+                   "Update done sucsseful ",
+                   Toast.LENGTH_LONG).show();
 
        }
     }
