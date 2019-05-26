@@ -84,7 +84,7 @@ public class MyContentProvider extends ContentProvider {
 
     }
 
-    
+
     @Override
     public Cursor query(Uri uri,
                         String[] projection,

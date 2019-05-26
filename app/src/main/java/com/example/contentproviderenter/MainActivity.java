@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     DBHelper helper;
     EditText Name,Age,SearchAge;
     TextView txv;
+    int id = 0;
 
 
     @Override
@@ -63,17 +64,16 @@ public class MainActivity extends AppCompatActivity {
         values.put(DBHelper.CONTACT_NAME,getName());
         values.put(DBHelper.CONTACT_AGE,getAge());
         Uri contactUri  = getContentResolver().insert(MyContentProvider.CONTENT_URI,values);
-//        Toast.makeText(this,"Created Contact " + getName(),Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Created Contact " + getName(),Toast.LENGTH_LONG).show();
+        id +=1;
         final Intent i= new Intent();
-        i.putExtra("data", getName());
+        i.putExtra("Name", getName());
+        i.putExtra("Age",getAge());
+        i.putExtra("ID",id);
         i.setAction("com.pkg.perform.Ruby");
         i.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         getApplicationContext().sendBroadcast(i);
     }
-
-
-
-
     public void btnUpdate(View view) {
         ContentValues values = new ContentValues();
         values.put(DBHelper.CONTACT_NAME,getName());

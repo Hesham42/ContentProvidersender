@@ -25,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //Create Table
     private static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_CONTACTS + " (" +
-                    CONTACT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    CONTACT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
                     CONTACT_NAME + " TEXT, " +
                     CONTACT_AGE + " INTEGER, " +
                     CONTACT_CREATED_ON + " TEXT default CURRENT_TIMESTAMP" +
@@ -40,6 +40,7 @@ public class DBHelper extends SQLiteOpenHelper {
 //    db.execSQL("create table myTable(myName text,myAge number)");
         db.execSQL(CREATE_TABLE);
 
+
     }
 
     @Override
@@ -47,4 +48,5 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_CONTACTS);
         onCreate(db);
     }
+
 }
